@@ -1,0 +1,14 @@
+streamlit
+langchain
+langchain-aws
+langchain-community
+langchain-core
+langgraph
+boto3
+youtube-transcript-api
+pytube
+google-generativeai
+fastapi
+uvicorn
+sqlite3
+pinecone
