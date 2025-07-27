@@ -1,4 +1,5 @@
 from fastapi import FastAPI,Body
+from fastapi.params import Query
 from pydantic import BaseModel
 from langgraph.prebuilt import create_react_agent
 from config.client import model
@@ -11,6 +12,7 @@ from models.api_models import VideoId
 from database.pinecone_upsert import upsert_video_chunks_to_pinecone
 from database.pinecone_retriever import semantic_search_by_creator
 from database.charachter_db import store_video_chunks_in_db,create_video_creator_table,insert_video_creator
+import uvicorn
 app=FastAPI()
 
 
@@ -32,9 +34,36 @@ def my_details():
     return my_info()
 
 
+
+@app.post("/create_table")
+def create_table():
+  
+    return {"message": "Table created"}
+
+
+@app.post("/load_data")
+def load_data_to_pinecone(video_id:VideoId=Body(...)):
+
+    try:
+        create_video_creator_table()
+        store_video_chunks_in_db(video_id=video_id.video_id[0])
+        upsert_video_chunks_to_pinecone(video_id=video_id.video_id[0])
+        return {"message": "Data loaded to Pinecone"}
+    except Exception as e:
+        return {"message": f"Error loading data to Pinecone: {e}"}
+
+
+@app.get("/retrieve_data")
+def retrieve_data(search_query:str):
+    try:
+        return semantic_search_by_creator(creator_id="creator123", search_query=search_query)
+    except Exception as e:
+        return {"message": f"Error retrieving data: {e}"}
+
+
+
 if __name__ == "__main__":
     create_video_creator_table()
-    store_video_chunks_in_db(video_id="KZeIEiBrT_w")
-
-    upsert_video_chunks_to_pinecone(video_id="KZeIEiBrT_w")
-    print(semantic_search_by_creator(creator_id="creator123", search_query="What is the markov chain?"))
+    store_video_chunks_in_db(video_id="-QTkPfq7w1A")
+    upsert_video_chunks_to_pinecone(video_id="-QTkPfq7w1A")
+    print(semantic_search_by_creator(creator_id="creator123", search_query="mechanism shrinks ?"))
