@@ -74,7 +74,8 @@ Charachter/
 4.  **Set up environment variables:**
     Create a `.env` file in the root directory and add the following:
 
-    Currently this project uses bedrock but we change it to any model  gemini,openai etc
+    Currently this project uses bedrock but we can change it to any model  gemini,openai etc
+    To update the model u can modify config/client.py file .
     ```
     BEDROCK_INFERENCE_PROFILE_ARN=<your-bedrock-arn>
     AWS_DEFAULT_REGION=<your-aws-region>
