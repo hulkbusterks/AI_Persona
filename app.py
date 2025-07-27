@@ -24,12 +24,12 @@ def health():
 
 
 
-@app.post("/my_personality",)
+@app.post("/generate_personality_from_videos",)
 def personality(video_id:VideoId=Body(...)):
     return get_personality(list(video_id.video_id))
 
 
-@app.get("/my_details")
+@app.get("/creator_background_details")
 def my_details():
     return my_info()
 
@@ -54,7 +54,7 @@ def load_data_to_pinecone(creator_id : str, video_id:VideoId=Body(...)):
         return {"message": f"Error loading data to Pinecone: {e}"}
 
 
-@app.get("/retrieve_data")
+@app.get("/retrieve_pinecone_data")
 def retrieve_data(creator_id: str, search_query:str):
     try:
         return semantic_search_by_creator(creator_id=creator_id, search_query=search_query)
