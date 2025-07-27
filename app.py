@@ -35,10 +35,10 @@ def my_details():
 
 
 
-@app.post("/create_table")
-def create_table():
+# @app.post("/create_table")
+# def create_table():
   
-    return {"message": "Table created"}
+#     return {"message": "Table created"}
 
 
 @app.post("/load_data")
