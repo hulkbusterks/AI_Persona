@@ -73,6 +73,8 @@ Charachter/
 
 4.  **Set up environment variables:**
     Create a `.env` file in the root directory and add the following:
+
+    Currently this project uses bedrock but we change it to any model  gemini,openai etc
     ```
     BEDROCK_INFERENCE_PROFILE_ARN=<your-bedrock-arn>
     AWS_DEFAULT_REGION=<your-aws-region>
