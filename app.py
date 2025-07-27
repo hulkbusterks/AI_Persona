@@ -60,12 +60,3 @@ def retrieve_data(creator_id: str, search_query:str):
         return semantic_search_by_creator(creator_id=creator_id, search_query=search_query)
     except Exception as e:
         return {"message": f"Error retrieving data: {e}"}
-
-
-
-if __name__ == "__main__":
-    create_video_creator_table()
-    store_video_chunks_in_db(video_id="-QTkPfq7w1A")
-    insert_video_creator(video_id = "-QTkPfq7w1A", creator_id = "creator123")
-    upsert_video_chunks_to_pinecone(video_id="-QTkPfq7w1A")
-    print(semantic_search_by_creator(creator_id="creator123", search_query="mechanism shrinks ?"))
